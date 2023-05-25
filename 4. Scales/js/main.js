@@ -18,6 +18,10 @@ const svg = d3.select("#chart-area").append("svg")
     var y = d3.scaleLinear()
       .domain([0, 828])
       .range([0, 500]);
+
+    var color = d3.scaleOrdinal()
+      .domain(buildingsData)
+      .range(d3.schemeSet3);
   
     var rects = svg.selectAll('rect')
       .data(buildingsData)
@@ -27,7 +31,7 @@ const svg = d3.select("#chart-area").append("svg")
       .attr('y', (d) => 500 - y(d))
       .attr('width', 20)
       .attr('height', (d) => y(d))
-      .attr('fill', 'blue');
+      .attr('fill', (d) => color(d));
   }).catch((error) => {
     console.log(error);
   });
